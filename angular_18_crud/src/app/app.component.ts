@@ -13,13 +13,13 @@ import { EmployeeModel } from './model/Employee';
 export class AppComponent { 
   
   employeeForm: FormGroup = new FormGroup({});
-
+  isEditMode: boolean = false; 
   employeeObj: EmployeeModel = new EmployeeModel();
   employeeList: EmployeeModel[] = [];
 
   constructor(){
     this.createForm();
-    debugger;
+    // debugger;
     const oldData = localStorage.getItem("EmpData") || '[]';
     if(oldData != null) { 
       const parseData =  JSON.parse(oldData);
@@ -28,6 +28,7 @@ export class AppComponent {
   }
   reset() {
     this.employeeObj = new EmployeeModel();
+    this.isEditMode = false; 
     this.createForm() 
   }
 
@@ -46,7 +47,7 @@ export class AppComponent {
 
   onSave() {
     
-    debugger;
+    // debugger;
     const oldData = localStorage.getItem("EmpData");
     if(oldData != null) {
       const parseData =  JSON.parse(oldData);
@@ -61,7 +62,7 @@ export class AppComponent {
   }
 
   onEdit(item: EmployeeModel) {
-    console.log("edit");
+    this.isEditMode = true;
     this.employeeObj =  item;
     this.createForm();
     this.employeeForm.controls['empid'].setValue(item.empid); 
